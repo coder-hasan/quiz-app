@@ -1,0 +1,18 @@
+.single-answer{
+    border: 1px solid #fff;
+    padding: 5px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    width: 450px;
+    font-size: 20px;
+    /* transition: 0.02s ease; */
+    cursor: pointer;
+    background-color: white;
+    color: black;
+}
+
+.single-answer:hover{
+    border-color: #000;
+    background-color: black;
+    color: white;
+}

@@ -10,6 +10,11 @@ function App() {
   const [currentAnswers, setCurrentAnswers] = useState(null)
   const [endGame, setEndGame] = useState(false)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [totalScore, setTotalScore] = useState(0)
+  const [correctAnswer, setCorrectAnswer] = useState(null)
+  const [pickedAnswer, setPickedAnswer] = useState(null)
+
+
   const fetchQuiz = async() => {
     const res = await fetch ('https://opentdb.com/api.php?amount=5&category=18&difficulty=easy&type=multiple')
     const {results} = await res.json()
@@ -22,6 +27,7 @@ function App() {
     // console.log(answers)
     // setCurrentAnswers(answers)
     setCurrentAnswers(shuffle(initialQuestion))
+    setCorrectAnswer(initialQuestion.correct_answer)
     // console.log(shuffle(initialQuestion))
     setStartQuiz(true)
     setQuizes(results);
@@ -40,11 +46,21 @@ function App() {
       // const question = quizes[currentQuestionIndex]
       const question = quizes[currentIndex]
       setCurrentAnswers(shuffle(question))
+      setCorrectAnswer(question.correct_answer)
     }else{
       setEndGame(true)
       console.log('At the End')
     }
   }
+
+  const handlePickedAnswer =  (answer) => {
+    setPickedAnswer(answer)
+    if(answer === correctAnswer){
+      setTotalScore((prevScor) => prevScor + 1)
+    }
+    console.log(answer)
+  }
+
   return (
     <div className="container, App">
       <div className=''>
@@ -55,9 +71,15 @@ function App() {
           index={currentQuestionIndex}
           quizes={quizes}
           nextQuestion={nextQuestion}
+          pickAnswer={handlePickedAnswer}
+          correctAnswer={correctAnswer}
+          pickedAnswer={pickedAnswer}
+
           ></QuestionCards>}
       </div>
-      {!startQuiz && <button onClick={fetchQuiz} className='btn btn-primary'>Start Quiz</button>}
+      <div>
+        {!startQuiz && <button onClick={fetchQuiz} className='btn btn-primary mt-5'>Start Quiz</button>}
+      </div>
     </div>
   );
 }
