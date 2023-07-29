@@ -16,3 +16,14 @@
     background-color: black;
     color: white;
 }
+
+.correct-answer {
+    border-color: #078080;
+}
+.wrong-answer {
+    border-color: #f45d48;
+}
+.disabled-answer{
+    pointer-events: none;
+}
+

@@ -1,28 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import AnswerCard from './AnswerCard';
+import { QuizContext } from '../Context/quizContext';
 
-const QuestionCards = ({
-    quiz, 
-    answers, 
-    index, 
+const QuestionCards = () => {
+    const { 
+    currentAnswers, 
+    currentQuestionIndex, 
     quizes, 
-    nextQuestion, 
-    pickAnswer,
-    correctAnswer,
-    pickedAnswer,
-}) => {
-    // console.log(index)
+    nextQuestion} = useContext(QuizContext)
+    const quiz = quizes[currentQuestionIndex]
     return (
         <div className='mt-5'>
             {/* {quiz} */}
-            <h4>Question: {index + 1} / {quizes.length}</h4>
+            <h4>Question: {currentQuestionIndex + 1} / {quizes.length}</h4>
             <h3 className='mt-4 mb-3'>{quiz.question}</h3>
-            {answers.map((answer, i) => <AnswerCard 
+            {currentAnswers.map((answer, i) => <AnswerCard 
             key={i} 
-            answer={answer} 
-            pickAnswer={pickAnswer} 
-            correctAnswer={correctAnswer}
-            pickedAnswer={pickedAnswer}
+            answer={answer}
             ></AnswerCard>)}
             <button onClick={nextQuestion} className='btn btn-success'>Next</button>
         </div>
